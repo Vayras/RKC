@@ -1,114 +1,84 @@
-import {FormEvent, useState} from 'react';
+
 import supabase from "../utils/supabase.ts";
+import {
+    FormControl,
+    FormLabel,
+    Input,
+    Heading,
+    Button,
+    InputGroup,
+    InputLeftAddon,
+    InputRightAddon,
+} from '@chakra-ui/react'
 
 function SignUp() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [address, setAddress] = useState('');
-    const [role, setRole] = useState('customer');
-    const [error, setError] = useState(null);
 
-    const handleSubmit = async (event:FormEvent) => {
-        event.preventDefault();
-
-        try {
-            const hashedPassword = await hashPassword(password);
-
-            const req = {
-                email,
-                password_hash: hashedPassword,
-                role,
-                name,
-                phone_number: phoneNumber,
-                address,
+    const submit = async( ) => {
+        const { error } = await supabase
+            .from('users')
+            .insert({
+                    "address": "123 Main St, Springfield, IL 62701",
+            "created_at": "2024-09-04T10:15:30Z",
+            "email": "john.doe@example.com",
+            "name": "John Doe",
+            "password_hash": "$2b$12$e5tU0z5D8QxHbG0iS1XO3OTl7H1xNpNz28R.zpuyBOSwHgfXbqx2K",
+            "phone_number": "+1-555-123-4567",
+            "role": "admin",
             }
-            console.log(req)
-            const { error } = await supabase
-                .from('users')
-                .insert({ id: 1, name: 'Denmark' })
+            )
+        console.log(error);
+    }
 
-            if (error) throw error;
+   return (
+       <div className='container mx-auto p-6 text-3xl bg-white mt-8 w-[600px] shadow-md rounded-xl justify-center flex items-center flex-col'>
+           <Heading >Register</Heading>
+           <FormControl className="mb-2">
+               <FormLabel>Email address</FormLabel>
+               <Input type='email' placeholder='john.doe@example.com' focusBorderColor='yellow.400'  borderColor = "" />
+           </FormControl>
+           <FormControl className="mb-2">
+               <FormLabel>Password</FormLabel>
+               <Input type='Password' placeholder='use strong password for security' focusBorderColor='yellow.400' />
+           </FormControl>
+           <div className={"flex gap-4  mb-2 w-full"}>
+               <FormControl >
+                   <FormLabel>First Name</FormLabel>
+                   <Input type='text' placeholder='First Name' focusBorderColor='yellow.400' />
+               </FormControl>
+               <FormControl>
+                   <FormLabel>Last Name</FormLabel>
+                   <Input type='text' placeholder='Last Name' focusBorderColor='yellow.400' />
+               </FormControl>
+           </div>
+           <FormControl className="mb-2">
+               <FormLabel>Address</FormLabel>
+               <Input type='text' focusBorderColor='yellow.400' placeholder='Address'  />
+           </FormControl>
+           <FormControl className="mb-2">
+               <FormLabel>Phone Number</FormLabel>
+               <InputGroup>
+                   <InputLeftAddon background='yellow.400'>+234</InputLeftAddon>
+                   <Input type='tel' placeholder='phone number' />
+               </InputGroup>
+           </FormControl>
+           <FormControl className="mb-2">
+               <FormLabel>Shop Name</FormLabel>
+               <Input type='text' focusBorderColor='yellow.400' placeholder ="shop name" />
+           </FormControl>
 
-            console.log('User registered successfully:', data);
-            setError(null);
-            // setEmail('');
-            // setPassword('');
-            // setName('');
-            // setPhoneNumber('');
-            // setAddress('');
-            // setRole('customer');
-        } catch (err: unknown) {
-            if (err instanceof Error) {
-                console.error((err as Error).message);
-            } else {
-                console.error('An unknown error occurred');
-            }
-        }
-    };
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <label>Email:</label>
-            <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <br />
-
-            <label>Password:</label>
-            <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <br />
-
-            <label>Name:</label>
-            <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-            />
-            <br />
-
-            <label>Phone Number:</label>
-            <input
-                type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <br />
-
-            <label>Address:</label>
-            <textarea
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-            />
-            <br />
-
-            <label>Role:</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
-                <option value="customer">Customer</option>
-                <option value="vendor">Vendor</option>
-                <option value="admin">Admin</option>
-            </select>
-            <br />
-
-            <button type="submit">Register</button>
-
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-        </form>
-    );
+           <FormControl className="mb-2">
+           <FormLabel>Shop Url</FormLabel>
+           <InputGroup size='md'>
+               <InputLeftAddon background='yellow.400' >https://</InputLeftAddon>
+               <Input type='text' disabled value="your shop" />
+               <InputRightAddon background='yellow.400'  >.com</InputRightAddon>
+           </InputGroup>
+           </FormControl>
+           <Button background='yellow.400' onClick={submit}>submit</Button>
+       </div>
+   )
 }
 
-async function hashPassword(password:string) {
-    return await crypto.subtle.digest('SHA-256', new TextEncoder().encode(password)).then(hash => btoa(String.fromCharCode(...new Uint8Array(hash))));
-}
+
 
 export default SignUp;

@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <div className=" container mx-auto flex flex-row justify-between uppercase font-semibold  py-2">
+    <div className=" container mx-auto flex flex-row justify-between uppercase font-semibold  py-2 bg-white">
         <div className="flex flex-row gap-8 ">
           <span className="text-2xl py-3 px-4 "> RKC</span>
 

@@ -5,7 +5,7 @@ import SignUp  from './components/SignUp.tsx';
 
 function App() {
   return (
-    <div>
+    <div className={"bg-gray-100 w-full h-screen"}>
       <div className=''><Navbar /></div>
 
         <SignUp />
