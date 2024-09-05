@@ -1,18 +1,21 @@
-
 import supabase from "../utils/supabase.ts";
 import {FormEvent, useState} from "react";
 import bcrypt from 'bcryptjs-react'
 import {
-    FormControl,
-    FormLabel,
-    Input,
-    Heading,
+    Box,
     Button,
+    FormControl,
+    FormErrorMessage,
+    FormLabel,
+    Heading,
+    Input,
     InputGroup,
     InputLeftAddon,
     InputRightAddon,
-    FormErrorMessage,
-    useToast,
+    Radio,
+    RadioGroup,
+    Stack,
+    useToast
 } from '@chakra-ui/react'
 
 function SignUp() {
@@ -24,7 +27,7 @@ function SignUp() {
     const [address, setAddress] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [shopName, setShopName] = useState("");
-    const [shopUrl, setShopUrl] = useState("");
+    const [role, setRole] = useState("");
 
 
     const [errors, setErrors] = useState({
@@ -36,7 +39,13 @@ function SignUp() {
         phoneNumber: false,
         shopName: false,
         shopUrl: false,
+        role: false
     });
+
+
+    const formatString = (string) => {
+        return string.replaceAll(' ', '')
+    }
 
     const handleEmailChange = (e: FormEvent) => {
         const value = (e.target as HTMLInputElement).value;
@@ -80,10 +89,10 @@ function SignUp() {
         setErrors((prev) => ({ ...prev, shopName: value === "" }));
     };
 
-    const handleShopUrlChange = (e: FormEvent) => {
+    const handleRoleChange = (e: FormEvent) => {
         const value = (e.target as HTMLInputElement).value;
-        setShopUrl(value);
-        setErrors((prev) => ({ ...prev, shopUrl: value === "" }));
+        setRole(value);
+        setErrors((prev) => ({ ...prev, role: value === "" }));
     };
 
 
@@ -97,7 +106,8 @@ function SignUp() {
             address: address === "",
             phoneNumber: phoneNumber === "",
             shopName: shopName === "",
-            shopUrl: shopUrl === "",
+            shopUrl: shopName === "",
+            role: role === "",
         };
         setErrors(newErrors);
 
@@ -120,7 +130,7 @@ function SignUp() {
             phone_number: phoneNumber,
             role: "vendor",
             shop_name: shopName,
-            shop_url: `https://${shopUrl}.com`,
+            shop_url: `https://${formatString(shopName)}.com`,
         });
 
         console.log(error);
@@ -170,22 +180,39 @@ function SignUp() {
                <FormLabel>Phone Number</FormLabel>
                <InputGroup>
                    <InputLeftAddon background='yellow.400'>+234</InputLeftAddon>
-                   <Input type='tel' onChange={handlePhoneNumberChange} value={phoneNumber} placeholder='phone number'  />
+                   <Input type='tel' onChange={handlePhoneNumberChange} value={phoneNumber} placeholder='phone number' focusBorderColor='black' />
                </InputGroup>
            </FormControl>
-           <FormControl className="mb-2" isRequired>
-               <FormLabel>Shop Name</FormLabel>
-               <Input type='text' value={shopName}  onChange={handleShopNameChange} focusBorderColor='yellow.400' placeholder ="shop name"  />
-           </FormControl>
+           <Box w="full" mt={2} mb={2}>
+               <RadioGroup defaultValue='2'>
+                   <Stack spacing={5} direction='row'>
+                       <Radio colorScheme='yellow' value='vendor' onChange={handleRoleChange}>
+                           I'm a Vendor
+                       </Radio>
+                       <Radio colorScheme='yellow' value='customer' onChange={handleRoleChange}>
+                           I'm a Customer
+                       </Radio>
+                   </Stack>
+               </RadioGroup>
+           </Box>
+           {
+               role === 'vendor' ?
+                   <>
+                   <FormControl className="mb-2" isRequired>
+                       <FormLabel>Shop Name</FormLabel>
+                       <Input type='text' value={shopName}  onChange={handleShopNameChange} focusBorderColor='black' placeholder ="shop name"  />
+                   </FormControl>
+                   <FormControl className="mb-2">
+                       <FormLabel>Shop Url</FormLabel>
+                       <InputGroup size='md'>
+                           <InputLeftAddon background='yellow.400'  >https://</InputLeftAddon>
+                           <Input type='text'  value={formatString(shopName)}  focusBorderColor='black' />
+                           <InputRightAddon background='yellow.400'  >.com</InputRightAddon>
+                       </InputGroup>
+                   </FormControl>
+               </> : null
+           }
 
-           <FormControl className="mb-2">
-           <FormLabel>Shop Url</FormLabel>
-           <InputGroup size='md'>
-               <InputLeftAddon background='yellow.400'  >https://</InputLeftAddon>
-               <Input type='text'  value={shopUrl}  onChange={handleShopUrlChange} focusBorderColor='yellow.400' />
-               <InputRightAddon background='yellow.400'  >.com</InputRightAddon>
-           </InputGroup>
-           </FormControl>
            <Button className={"mt-4 w-full"} background='yellow.400' onClick={submit}>submit</Button>
        </div>
    )

@@ -1,4 +1,4 @@
-export const Card = () => {
+export const HomepageCard = () => {
    
     const JewelryObj = [
         {
@@ -33,11 +33,11 @@ export const Card = () => {
         },
     ]
     return (
-        <div className="container mx-auto  mt-10 flex flex-row gap-10 overflow-hidden mb-10">
+        <div className="container mx-auto  mt-10 flex flex-row gap-10 overflow-hidden mb-10 justify-center items-center">
             {JewelryObj.map((item, index) => {
                 return (
                     <span key={index} className="flex flex-col items-center ">
-                        <span className="w-56 h-56 bg-black text-white rounded-full flex items-center justify-center overflow-hidden">
+                        <span className="w-[13.5rem] h-[13.5rem] bg-black text-white rounded-full flex items-center justify-center overflow-hidden">
                             <img className="object-cover w-full h-full" src={item.image} alt="Circular Image" />
                         </span>
                         <p className="mt-4 text-2xl semibold">{item.name}</p>
