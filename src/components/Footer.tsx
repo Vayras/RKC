@@ -1,7 +1,7 @@
 
 export default function Footer (){
     return (
-        <div className=" border-t border-gray-300 border-2 mt-32 ">
+        <div className=" border-t border-gray-300 border-2">
         <div className="mx-auto container p-6 flex justify-between ">
             <div>
                 <img

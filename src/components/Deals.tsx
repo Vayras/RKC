@@ -55,7 +55,7 @@ export const Deals = () => {
                         />
 
                         <div className="p-4 flex flex-col justify-between h-full">
-                            <h2 className="text-xl font-semibold mb-2">{product.title}</h2>
+                            <h2 className="text-xl font-semibold mb-2 line-clamp-1">{product.title}</h2>
 
                             <div className="flex items-center gap-2">
                                 <span className="text-green-600 text-lg font-semibold">{product.price}</span>
@@ -95,7 +95,7 @@ export const Deals = () => {
 
                             </div>
                             <button
-                                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4">
+                                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded mt-4">
                                 Buy Now
                             </button>
                         </div>

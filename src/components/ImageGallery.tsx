@@ -16,7 +16,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
     };
 
     return (
-        <div className="flex gap-[90px] p-4">
+        <div className="flex gap-[90px] ">
             {/* Thumbnails */}
             <div className="flex flex-col space-y-2">
                 {images.map((image, index) => (
@@ -24,8 +24,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                         key={index}
                         src={image}
                         alt={`Thumbnail ${index + 1}`}
-                        className={`w-16 h-16 object-cover rounded-md cursor-pointer ${
-                            index === currentIndex ? "border-2 border-black" : "border"
+                        className={`w-16   h-16 object-cover rounded-md cursor-pointer ${
+                            index === currentIndex ? "border-2 border-black" : ""
                         }`}
                         onClick={() => setCurrentIndex(index)}
                     />

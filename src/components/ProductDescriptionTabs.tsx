@@ -1,7 +1,7 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import {SpecificiationTable} from "./SpecificationTable.tsx";
 import {VendorInfo} from "./VendorInfo.tsx";
-
+import {Deals} from "./Deals.tsx";
 
 interface ProductDetailsProps {
     description: string;
@@ -33,7 +33,7 @@ export const ProductDescriptionTabs = ( props:ProductDetailsProps) => {
             </TabList>
 
             <TabPanels >
-                <TabPanel  textAlign={"start"}>
+                <TabPanel  textAlign={"center"}>
                     <p>{props.description}</p>
                 </TabPanel>
                 <TabPanel>
@@ -49,7 +49,7 @@ export const ProductDescriptionTabs = ( props:ProductDetailsProps) => {
                     <VendorInfo />
                 </TabPanel>
                 <TabPanel>
-                    <p> more </p>
+                    <Deals/>
                 </TabPanel>
                 <TabPanel>
                </TabPanel>
