@@ -58,7 +58,7 @@ return (
 
                 </span>
                 <span>
-                    Education
+                      <Link to={"/education"}> Education</Link>
                 </span>
                 <span>
                    <Link to={"/about"}> About Us</Link>

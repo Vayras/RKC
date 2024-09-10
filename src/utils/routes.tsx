@@ -8,6 +8,7 @@ import Login from "../components/Login.tsx";
 import SetupShop from "../components/SetupShop.tsx";
 import ContactForm from "../components/ContactForm.tsx";
 import AboutUs from "../components/AboutUs.tsx";
+import Education from "../components/Education";
 
 export const AppRoutes = () => (
     <Routes>
@@ -27,5 +28,6 @@ export const AppRoutes = () => (
         <Route path="setup" element={<SetupShop />} />
         <Route path="contact" element={<ContactForm />}/>
         <Route path="about" element={<AboutUs/>} />
+        <Route path="education" element={<Education/>} />
     </Routes>
 );

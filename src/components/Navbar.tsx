@@ -9,25 +9,24 @@ const Navbar = () => {
 
         <div className="flex flex-row gap-8 ">
           <span className="text-2xl py-3 px-4 ">
-              <Link to={"/"}>RKC </Link>
+              <Link to={"/"}>
+              <img src="https://rkcjewelry.com/cdn/shop/files/Main_logo_PNG_org_f0b74311-b5fb-42e8-ae47-e50be3c396c0.png?v=1708411732&width=110" alt=""/>
+              </Link>
               </span>
-          <span className="text-xl flex flex-row baseline hover:bg-yellow-400  py-3 px-4 hover:underline rounded-full transition-all ">
-            Categories
-          </span>
         </div>
 
-        <div className="relative" dir="ltr">
+        <div className="relative my-6" dir="ltr">
           <span className="absolute top-[5px] right-1 bg-yellow-400 p-[8px] rounded-full transition-all ">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
           </span>
           <input
-            className="border-2 border-slate-400 focus:none outline-none  w-[800px] h-[50px] rounded-full text-xl p-5 pl-12"
+            className="border-2 border-slate-400 focus:none outline-none  w-[800px] h-[50px] rounded-full text-xl p-5 pl-12 "
             type="text"
           />
         </div>
-        <div className="flex text-3xl gap-6 mt-3">
+        <div className="flex text-3xl gap-6 mt-[35px]">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +34,7 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="size-6"
+              className="size-8"
             >
               <path
                 strokeLinecap="round"
@@ -51,7 +50,7 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="size-6"
+              className="size-8"
             >
               <path
                 strokeLinecap="round"
@@ -68,7 +67,7 @@ const Navbar = () => {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="size-6"
+              className="size-8"
             >
               <path
                 stroke-linecap="round"

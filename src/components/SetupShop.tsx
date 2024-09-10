@@ -1,4 +1,4 @@
-import {Button, FormControl, FormLabel, Heading, Input, Textarea} from "@chakra-ui/react";
+import {Button, FormControl, FormLabel, Heading, Textarea} from "@chakra-ui/react";
 
 
 function setupShop() {
