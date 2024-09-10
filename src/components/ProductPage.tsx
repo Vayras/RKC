@@ -4,11 +4,9 @@ import ImageGallery from "./ImageGallery";
 import {ProductDescriptionTabs} from "./ProductDescriptionTabs.tsx";
 export const ProductPage = (  ) => {
     const images = [
-        // Replace these with your actual image URLs
         "https://i.etsystatic.com/48321112/r/il/f02b3c/5660901723/il_794xN.5660901723_1an6.jpg",
         "https://i.etsystatic.com/48321112/r/il/564be6/5660901741/il_794xN.5660901741_jhcq.jpg",
         "https://i.etsystatic.com/48321112/r/il/80c46e/5612814002/il_794xN.5612814002_bqh8.jpg",
-        // Add more images as needed
     ];
     return (
         <>

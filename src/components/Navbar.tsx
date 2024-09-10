@@ -3,8 +3,8 @@ import {Link} from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className=" bg-white min-w-screen ">
-        <div className="container mx-auto flex flex-row justify-between uppercase font-semibold  py-2 ">
+    <div className=" bg-white min-w-screen  border-b-2 border-black">
+        <div className="container mx-auto flex flex-row justify-between uppercase font-semibold  py-2">
 
 
         <div className="flex flex-row gap-8 ">

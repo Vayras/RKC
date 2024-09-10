@@ -11,6 +11,7 @@ import {
     FormErrorMessage, useToast,
 } from '@chakra-ui/react'
 
+
 function Login() {
     const toast = useToast()
     const [email, setEmail] = useState("");
@@ -67,6 +68,7 @@ function Login() {
                 position: 'top-right',
                 isClosable: true,
             })
+            window.location.href="/";
         }
         else{
             toast({

@@ -18,7 +18,12 @@ import {
     useToast
 } from '@chakra-ui/react'
 
+import { v4 as uuidv4 } from  'uuid'
+import { useNavigate } from 'react-router-dom';
+
+
 function SignUp() {
+    const navigate = useNavigate();
     const toast = useToast()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -43,8 +48,8 @@ function SignUp() {
     });
 
 
-    const formatString = (string) => {
-        return string.replaceAll(' ', '')
+    const formatString = (string: string): string => {
+        return string.replace(/ /g, '')
     }
 
     const handleEmailChange = (e: FormEvent) => {
@@ -119,32 +124,75 @@ function SignUp() {
         if (!validateForm()) {
             return;
         }
-        const hash =await bcrypt.hash(password,10)
 
-        const { error } = await supabase.from("users").insert({
+        // Generate a UUID
+        const uuid = uuidv4();
+        const hash = await bcrypt.hash(password, 10);
+
+        // Insert into users table
+        const {error: userError } = await supabase.from("users").insert({
+            id: uuid, // Use the same UUID
             address,
             created_at: new Date().toISOString(),
             email,
             name: `${firstName} ${lastName}`,
             password_hash: hash,
             phone_number: phoneNumber,
-            role: "vendor",
+            role,
             shop_name: shopName,
-            shop_url: `https://${formatString(shopName)}.com`,
+            shop_url: role === "vendor" ? `https://${formatString(shopName)}.com` : null,
         });
 
-        console.log(error);
-
-        if(error === null) {
+        if (userError) {
+            console.log(userError);
             toast({
-                title: 'Account created.',
-                description: "We've created your account for you.",
-                status: 'success',
+                title: 'Error',
+                description: "Error creating account",
+                status: 'error',
                 duration: 5000,
                 position: 'top-right',
                 isClosable: true,
-            })
+            });
+            return;
         }
+
+        if (role === "vendor") {
+            const { data: fetchdata, error: vendorError } = await supabase.from("vendors").insert({
+                user_id: uuid,
+                store_name: shopName,
+            }).select();
+
+
+
+            if (fetchdata) {
+                console.log(fetchdata);
+                if (fetchdata[0].description === null || fetchdata[0].logo_url === null ) {
+                    navigate('/setup');
+                }
+            }
+            if (vendorError) {
+                console.log(vendorError);
+                toast({
+                    title: 'Error',
+                    description: "Error creating vendor account",
+                    status: 'error',
+                    duration: 5000,
+                    position: 'top-right',
+                    isClosable: true,
+                });
+                return;
+            }
+
+        }
+
+        toast({
+            title: 'Account created.',
+            description: "We've created your account for you.",
+            status: 'success',
+            duration: 5000,
+            position: 'top-right',
+            isClosable: true,
+        });
     };
 
 
