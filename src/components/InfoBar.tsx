@@ -5,10 +5,17 @@ import {
     MenuItem,
 } from '@chakra-ui/react'
 import {Link} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 function InfoBar (){
-return (
+    const navigate = useNavigate();
+    const handleClick = (category: string) => {
+        navigate(`/collection/${category}`);
+    }
+
+
+    return (
     <div className=" bg-white min-w-screen  border-b-2  ">
         <div className="container mx-auto flex flex-row justify-between uppercase font-semibold py-4 px-2">
            <div>
@@ -17,11 +24,11 @@ return (
                        <p className="uppercase">Shop By Collection</p>
                    </MenuButton>
                    <MenuList>
-                       <MenuItem>Ring</MenuItem>
-                       <MenuItem>Pendant</MenuItem>
-                       <MenuItem>Earrings</MenuItem>
-                       <MenuItem>Pendant</MenuItem>
-                       <MenuItem>Bracelet</MenuItem>
+                       <MenuItem onClick={() =>handleClick('Ring')}>Ring</MenuItem>
+                       <MenuItem onClick={() =>handleClick('pendant')} >Pendant</MenuItem>
+                       <MenuItem onClick={() =>handleClick('Earring')}>Earrings</MenuItem>
+                       <MenuItem onClick={() =>handleClick('Bracelet')}>Bracelet</MenuItem>
+                       <MenuItem onClick={() =>handleClick('Necklace')}>Necklace</MenuItem>
                    </MenuList>
                </Menu>
 

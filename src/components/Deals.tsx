@@ -1,10 +1,12 @@
 import supabase from "../utils/supabase.ts";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
+import SkeletonLoader from "./SkeletonLoader.tsx";
 
 export const Deals = () => {
 
     const [dealsData, setDealsData] = useState([]); // Use an empty array for product listings
+    const [isLoading, setIsLoading] = useState(true);
 
     const getDeals = async () => {
         const { data, error } = await supabase
@@ -20,7 +22,7 @@ export const Deals = () => {
             console.error("Error fetching deals: ", error);
         } else {
             setDealsData(data);
-            console.log(data);
+            setIsLoading(false);
         }
     };
 
@@ -32,7 +34,6 @@ export const Deals = () => {
     const navigate = useNavigate();
 
     const handleClick = (id: number) => {
-        console.log(`Clicked product ID: ${id}`);
         navigate(`/products/${id}`);
     }
 
@@ -45,7 +46,12 @@ export const Deals = () => {
             <hr className="mb-12" />
            
         <div className="flex flex-row gap-2 cursor-pointer"  >
-            { dealsData.map((product , i ) => (
+            {isLoading ?
+                Array(5).fill(null).map((_, index) => (
+                    <SkeletonLoader key={index} />
+                ))
+                :
+                dealsData.map((product , i ) => (
                 <div key={product.id} onClick={ () => handleClick(product.id)}>
                     <div className="max-w-[320px] min-h-[340px] border-2 border-gray-200 rounded-lg shadow-md">
                         <img
@@ -101,7 +107,8 @@ export const Deals = () => {
                         </div>
                     </div>
                 </div>
-            ))}
+            ))
+                 }
         </div>
         </div>
     );

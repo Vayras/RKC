@@ -81,7 +81,8 @@ function Login() {
         }
     }
     return (
-        <div className='container mx-auto p-6 text-3xl bg-white my-8 w-[600px] shadow-md rounded-xl justify-center mt-52 flex items-center flex-col'>
+
+        <div className='container mx-auto p-6 text-3xl bg-white my-8 w-[600px] shadow-md rounded-xl mb-52 mt-32 justify-center flex items-center flex-col'>
             <Heading >Login</Heading>
             <FormControl isInvalid={errors.email} isRequired>
                 <FormLabel>Email</FormLabel>
