@@ -57,7 +57,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({ images }) => {
                 <img
                     src={images[currentIndex]}
                     alt={`Main image ${currentIndex + 1}`}
-                    className="max-w-full max-h-full object-fit rounded-xl"
+                    className=" h-72 w-72 object-fit rounded-xl"
                 />
 
                 <button

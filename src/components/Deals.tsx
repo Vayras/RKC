@@ -1,50 +1,8 @@
 import supabase from "../utils/supabase.ts";
 import {useEffect, useState} from "react";
-
+import { useNavigate } from 'react-router-dom';
 
 export const Deals = () => {
-    const products = [
-        {
-            id: 1,
-            title: "Gold Necklace",
-            image: "https://via.placeholder.com/320x240",
-            price: "$299.99",
-            originalPrice: "$399.99",
-            seller: "Jewels & Co.",
-        },
-        {
-            id: 2,
-            title: "Diamond Ring",
-            image: "https://via.placeholder.com/320x240",
-            price: "$1,499.99",
-            originalPrice: "$1,999.99",
-            seller: "Gems Palace",
-        },
-        {
-            id: 3,
-            title: "Silver Bracelet",
-            image: "https://via.placeholder.com/320x240",
-            price: "$199.99",
-            originalPrice: "$249.99",
-            seller: "Silver Line",
-        },
-        {
-            id: 4,
-            title: "Pearl Earrings",
-            image: "https://via.placeholder.com/320x240",
-            price: "$149.99",
-            originalPrice: "$199.99",
-            seller: "Pearl Paradise",
-        },
-        {
-            id: 5,
-            title: "Emerald Pendant",
-            image: "https://via.placeholder.com/320x240",
-            price: "$799.99",
-            originalPrice: "$999.99",
-            seller: "Luxury Stones",
-        },
-    ];
 
     const [dealsData, setDealsData] = useState([]); // Use an empty array for product listings
 
@@ -70,6 +28,14 @@ export const Deals = () => {
         getDeals();
     }, []);
 
+
+    const navigate = useNavigate();
+
+    const handleClick = (id: number) => {
+        console.log(`Clicked product ID: ${id}`);
+        navigate(`/products/${id}`);
+    }
+
     return (
         <div className="container mx-auto mt-8 ">
             <div className="flex justify-between items-center mb-2">
@@ -78,9 +44,9 @@ export const Deals = () => {
             </div>
             <hr className="mb-12" />
            
-        <div className="flex flex-row gap-2">
+        <div className="flex flex-row gap-2 cursor-pointer"  >
             { dealsData.map((product , i ) => (
-                <div key={product.id}>
+                <div key={product.id} onClick={ () => handleClick(product.id)}>
                     <div className="max-w-[320px] min-h-[340px] border-2 border-gray-200 rounded-lg shadow-md">
                         <img
                             src={dealsData[i].Image_url}

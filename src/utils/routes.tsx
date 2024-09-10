@@ -22,7 +22,7 @@ export const AppRoutes = () => (
                 </div>
             }
         />
-        <Route path="/products/1" element={<ProductPage />} />
+        <Route path="/products/:id" element={<ProductPage />} />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<SignUp />} />
         <Route path="setup" element={<SetupShop />} />

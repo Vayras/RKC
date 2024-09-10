@@ -2,25 +2,65 @@ import ProductInfo from "./ProductInfo.tsx";
 import ProductDetails from "./ProductDetails.tsx";
 import ImageGallery from "./ImageGallery";
 import {ProductDescriptionTabs} from "./ProductDescriptionTabs.tsx";
+
+import  { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import supabase from "../utils/supabase";
+
+interface Product {
+    id: number;
+    title: string;
+    price: string;
+    original_price: string;
+    image_url: string;
+    vendors?: {
+        store_name: string;
+    };
+}
+
 export const ProductPage = (  ) => {
-    const images = [
-        "https://i.etsystatic.com/48321112/r/il/f02b3c/5660901723/il_794xN.5660901723_1an6.jpg",
-        "https://i.etsystatic.com/48321112/r/il/564be6/5660901741/il_794xN.5660901741_jhcq.jpg",
-        "https://i.etsystatic.com/48321112/r/il/80c46e/5612814002/il_794xN.5612814002_bqh8.jpg",
-    ];
+    const { id } = useParams<{ id: string }>();
+    const [product, setProduct] = useState<Product | null>(null);
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            const { data, error } = await supabase
+                .from('products')
+                .select(`
+          *,
+          vendors (
+            store_name
+          )
+        `)
+                .eq('id', id)
+                .single();
+
+            console.log(data);
+            if (error) {
+                console.error('Error fetching product:', error);
+                setProduct(null);
+            } else {
+                setProduct(data);
+            }
+        };
+
+        fetchProduct();
+
+    }, [id]);
+
     return (
         <>
-        <div className="container mx-auto p-4 flex gap-12">
+        <div className="container mx-auto p-4 flex gap-12 bg-white">
             <div className="max-w-4xl mx-auto p-2">
-                <ImageGallery images={images}/>
+                <ImageGallery images={[product?.Image_url]}/>
             </div>
             <div>
                 <div className="p-4">
                     <ProductInfo
-                        price={3440}
-                        originalPrice={3880}
+                        price={product?.price}
+                        originalPrice={6880}
                         discount={11}
-                        seller="ETERNAL SPARKLES INC"
+                        seller={product?.vendors?.store_name}
                         inStock={true}
                     />
                 </div>
@@ -28,12 +68,12 @@ export const ProductPage = (  ) => {
                 <hr/>
                 <div className="p-4">
                     <ProductDetails
-                        description="A mangalsutra is a traditional necklace worn by married Hindu women, symbolizing their marital status and union with their husband. It typically features black and gold beads with a central pendant, serving as a sacred and culturally significant piece of jewelry in Indian weddings and married life."
+                        description={product?.description}
                         quantity={1}
-                        category="Mangalsutra"
+                        category={product?.category}
                         tags={["Everyday Wear", "Gift for Mother", "Just Because", "Mangalsutras", "Others Jewelry", "Wings of Wonder"]}
-                        sellerName="Eternal Sparkles Inc"
-                        sellerRating={0}
+                        sellerName={product?.vendors?.store_name}
+                        sellerRating={1}
                         inStock={true}
                     />
                 </div>
@@ -42,7 +82,7 @@ export const ProductPage = (  ) => {
         </div>
         <div className="container mx-auto p-4">
           <ProductDescriptionTabs
-              description={"Add a touch of class to your outfit with this stylish business quartz sport watch designed for men. The brown leather strap complements the brown dial and bezel, giving it a casual and sophisticated look. With a stainless steel case material, this watch is built to last. It has a 12-hour dial, chronograph, and day/night indicator, making it a perfect accessory for all occasions."}
+              description={product?.description}
               shipping={"Ready to ship in 1-3 business days from India"}
           />
         </div>

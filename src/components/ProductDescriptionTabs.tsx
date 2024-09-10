@@ -16,6 +16,7 @@ interface ProductDetailsProps {
 export const ProductDescriptionTabs = ( props:ProductDetailsProps) => {
     return (
         <Tabs
+            className=""
             size="lg"
             align="center"
             variant="line"

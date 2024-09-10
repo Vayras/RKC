@@ -19,10 +19,10 @@ const ProductInfo: React.FC<ProductInfoProps> =
     return (
         <div className="flex flex-col space-y-1">
             <div className="text-red-700 text-2xl font-bold">
-                ₹{price.toLocaleString('en-IN')}
+                ₹{price}
             </div>
             <div className="text-gray-500 line-through text-lg">
-                ₹{originalPrice.toLocaleString('en-IN')}
+                ₹{originalPrice}
             </div>
             <div className="text-red-600 text-sm">
                 ({discount}%)

@@ -18,7 +18,6 @@ const ProductDetails: React.FC<ProductDetailsProps> =
          tags,
          sellerName,
          sellerRating,
-         // inStock,
      }) => {
     return (
         <div className="space-y-4">
@@ -56,7 +55,9 @@ const ProductDetails: React.FC<ProductDetailsProps> =
             <div className="border-t border-gray-300 pt-4">
                 <div className="flex items-center space-x-4">
                     <div className="rounded-full bg-gray-100 w-12 h-12 flex items-center justify-center">
-                        <span className="text-gray-700 font-bold">{sellerName.slice(0, 3)}</span>
+                            <span className="text-gray-700 font-bold">
+                                {sellerName ? sellerName.slice(0, 3) : ''}
+                            </span>
                     </div>
                     <div>
                         <p className="text-gray-700 font-semibold">{sellerName}</p>
@@ -84,6 +85,6 @@ const ProductDetails: React.FC<ProductDetailsProps> =
             </div>
         </div>
     );
-};
+    };
 
 export default ProductDetails;
